@@ -15,11 +15,11 @@ import java.util.Scanner;
 public class Main{
     public static final double MIN_GRADE = 50;
     public static final String FILE_DIR = "target/records";
+    public static final int TOTAL_SUBJECTS = 64;
     public static void main(String[] args){
         //datatype varName = initialValue;
         String name;
         String subject;
-        double[] grades = new double[3];
         /*
         grades[0] = prelim
         grades[1] = midterm
@@ -27,33 +27,63 @@ public class Main{
          */
 
         String[] terms = {"Prelim", "Midterm", "Finals"};
+        String[] subjects = new String[TOTAL_SUBJECTS];
+        double[][] grades = new double[TOTAL_SUBJECTS][terms.length];
 
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Enter name: ");
         name = scanner.nextLine();
 
-        System.out.print("Enter subject: ");
-        subject = scanner.nextLine();
+        for(int i = 0; i < TOTAL_SUBJECTS; i++){
 
-        for(int i = 0; i < grades.length; i++){
-            System.out.print("Enter grade for " + terms[i] + ": ");
+            System.out.print("Enter subject " + (i+1) + ": ");
+            subjects[i] = scanner.nextLine();
 
-            try {
-                grades[i] = scanner.nextDouble();
-            } catch (Exception e) {
-                System.out.println("Invalid grade");
-                scanner.nextLine(); // to delete the enter key
-                i--;
+            for(int j = 0; j < terms.length; j++){
+                System.out.print("\t" + terms[j] + ": ");
+                try {
+                    grades[i][j] = Double.parseDouble(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("\tInvalid grade, try again");
+                    j--; //go back and fill in the missed grade because of invalid input
+                }
+
+                if(grades[i][j] < MIN_GRADE){
+                    System.out.println("\tInvalid grade, try again");
+                    j--;
+                }
             }
 
-            if(grades[i] < MIN_GRADE){
-                System.out.println("Invalid grade");
-                i--;
-            }
+            System.out.print("Add subject (y/n): ");
+            char c = scanner.nextLine().charAt(0);
+            if(Character.toLowerCase(c) != 'y') break;
+
 
         }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Name: ").append(name).append("\n");
 
+        sb.append(String.format("%-15s%-10s%-10s%-10s%-10s\n", "Subject", terms[0], terms[1], terms[2], "Final Rating"));
+
+        for(int i = 0; i < TOTAL_SUBJECTS; i++) {
+
+            sb.append(String.format("%-15s", subjects[i]));
+
+            for(int j = 0; j < terms.length; j++) {
+                sb.append(String.format("%8.2f", grades[i][j]));
+            }
+            sb.append(String.format("%8.2f", getFinalRating(grades[i])));
+
+
+            sb.append("\n");
+
+            if(subjects[i] == null) break;
+        }
+
+        System.out.println(sb.toString());
+        writeToFile(name, sb.toString());
+
+        /*
         String result = String.format("""
                 Name: %s
                 Subject: %s
@@ -70,7 +100,7 @@ public class Main{
 
         System.out.println("\n\nReading Files -----------------");
         readAllFiles();
-
+        */
     }
 
     /**
