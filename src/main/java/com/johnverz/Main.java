@@ -15,11 +15,21 @@ import java.util.Scanner;
 public class Main{
     public static final double MIN_GRADE = 50;
     public static final String FILE_DIR = "target/records";
-    public static final int TOTAL_SUBJECTS = 64;
+    public static final int NUM_OF_SUBJECTS = 64;
+    public static final int NUM_OF_TERMS = 3;
     public static void main(String[] args){
         //datatype varName = initialValue;
         String name;
         String subject;
+
+        String[] subjects = new String[NUM_OF_SUBJECTS];
+        /*
+            DSA = array, array list, list, linked list
+        */
+
+        //double[] grades = new double[3];
+        double[][] grades = new double[NUM_OF_SUBJECTS][NUM_OF_SUBJECTS];
+
         /*
         grades[0] = prelim
         grades[1] = midterm
@@ -27,80 +37,61 @@ public class Main{
          */
 
         String[] terms = {"Prelim", "Midterm", "Finals"};
-        String[] subjects = new String[TOTAL_SUBJECTS];
-        double[][] grades = new double[TOTAL_SUBJECTS][terms.length];
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter name: ");
         name = scanner.nextLine();
 
-        for(int i = 0; i < TOTAL_SUBJECTS; i++){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Name: ").append(name);
+        // String sb = "Name: " + name;
+        //HEADER
+        sb.append("\n").append(String.format(
+                        "%-15s%-10s%-10s%-10s%s\n",
+                        "SUBJECTS","PRELIM", "MIDTERM", "FINAL","FINAL RATING"
+                )
+        );
 
-            System.out.print("Enter subject " + (i+1) + ": ");
+
+        for(int i = 0; i < NUM_OF_SUBJECTS; i++){
+            System.out.print("Enter subject: ");
             subjects[i] = scanner.nextLine();
+            sb.append(String.format("%-15s", subjects[i]));
 
-            for(int j = 0; j < terms.length; j++){
+            for(int j = 0; j < NUM_OF_TERMS; j++){
                 System.out.print("\t" + terms[j] + ": ");
                 try {
                     grades[i][j] = Double.parseDouble(scanner.nextLine());
+                    if(grades[i][j] < MIN_GRADE){
+                        throw new Exception("Error! No grades lesser than 50.");
+                    }
                 } catch (NumberFormatException e) {
-                    System.out.println("\tInvalid grade, try again");
-                    j--; //go back and fill in the missed grade because of invalid input
+                    System.out.println("\tError! Invalid number.");
+                    --j;
+                    continue;
+                } catch(Exception e){
+                    System.out.println("\t" + e.getMessage());
+                    --j;
+                    continue;
                 }
 
-                if(grades[i][j] < MIN_GRADE){
-                    System.out.println("\tInvalid grade, try again");
-                    j--;
-                }
+                sb.append(String.format("%-10.2f", grades[i][j]));
+
             }
 
-            System.out.print("Add subject (y/n): ");
-            char c = scanner.nextLine().charAt(0);
-            if(Character.toLowerCase(c) != 'y') break;
+            System.out.print("Add another subject (y/n): ");
+            char choice = scanner.nextLine().charAt(0);
 
+            sb.append(String.format("%.2f\n", getFinalRating(grades[i])));
 
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Name: ").append(name).append("\n");
-
-        sb.append(String.format("%-15s%-10s%-10s%-10s%-10s\n", "Subject", terms[0], terms[1], terms[2], "Final Rating"));
-
-        for(int i = 0; i < TOTAL_SUBJECTS; i++) {
-
-            sb.append(String.format("%-15s", subjects[i]));
-
-            for(int j = 0; j < terms.length; j++) {
-                sb.append(String.format("%8.2f", grades[i][j]));
-            }
-            sb.append(String.format("%8.2f", getFinalRating(grades[i])));
-
-
-            sb.append("\n");
-
-            if(subjects[i] == null) break;
+            if(Character.toLowerCase(choice) != 'y')
+                break;
         }
 
-        System.out.println(sb.toString());
+        //PRINT RESULT
+        System.out.println(sb);
         writeToFile(name, sb.toString());
-
-        /*
-        String result = String.format("""
-                Name: %s
-                Subject: %s
-                Prelim: %.2f
-                Midterm: %.2f
-                Finals: %.2f
-                Final Rating: %.2f
-                """, name, subject, grades[0], grades[1], grades[2], getFinalRating(grades));
-
-        System.out.println("Grade Computation Results");
-        System.out.println(result);
-        writeToFile(name, result);
-        System.out.println("File saved.");
-
-        System.out.println("\n\nReading Files -----------------");
-        readAllFiles();
-        */
     }
 
     /**
