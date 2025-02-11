@@ -4,36 +4,35 @@ package com.johnverz;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Main{
     public static void main(String[] args) {
-        Student student1 = new Student(); //creating an object -> instantiating an object Student
-        student1.setId(240414);
+        Student[] students = new Student[2];
+        students[0] = new Student();
+        students[0].setEmail("hello@gmail.com");
+        System.out.println(students[0].getEmail());
 
-        System.out.println(student1.getId());
-        student1.lastName = "Ciubal";
-        student1.firstName = "Regin Jacob";
-        student1.middleName = "Heruela";
-        student1.email = "reginjacob.ciubal@lorma.edu";
-        student1.birthDay = LocalDate.parse("2005-07-12", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        var x = 100;   //type inferencing
+//        x = "asdfsa";   //do not do this
+       // ArrayList<> studentList = new ArrayList<>();
 
-        System.out.println(student1.birthDay.getYear());
-        Period age = Period.between(LocalDate.now(), student1.birthDay);
-        int a = age.getYears();
-        System.out.println("Age: " + Math.abs(a));
+        ArrayList<String> ngolors = new ArrayList<>();
+        ngolors.add("Mink");
+        ngolors.add("murmle");
+        ngolors.add("nred");
+
+        System.out.println(ngolors.get(1));
+        //not this ngolors[1]
 
 
-        LocalDate s2Bday = LocalDate.parse("2004-11-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        Student s2 = new Student(2402497,
-                "Nera",
-                "Christian Jacob",
-                "Torres",
-                s2Bday,
-                "christianjacob.nera@lorma.edu");// creating an object
+        //var studentList = new ArrayList<Student>();
+        //List<Student> studentList = new ArrayList<>();
+        ArrayList<Student> studentList = new ArrayList<>();
+        studentList.add(new Student(1234, "de Tiger", "Ernest", "Marcos", LocalDate.now(), "grrr@gmai.com"));
 
-        System.out.println(s2.getFullName());
-        System.out.println(s2.getAge());
-
+        System.out.println(studentList.get(0).getFullName());
     }
 }
