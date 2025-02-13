@@ -4,35 +4,35 @@ package com.johnverz;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class Main{
     public static void main(String[] args) {
-        Student[] students = new Student[2];
-        students[0] = new Student();
-        students[0].setEmail("hello@gmail.com");
-        System.out.println(students[0].getEmail());
+        Student s1 = new Student(); //creating an object of the class, calling one of the available constructors
+        s1.setFirstName("mark john doe");
 
-//        var x = 100;   //type inferencing
-//        x = "asdfsa";   //do not do this
-       // ArrayList<> studentList = new ArrayList<>();
+        System.out.println(s1.getFirstName());
+//        s1.firstName = "Kate";
+//        s1.middleName = "Mendoza";
+//        s1.lastName = "Baltazar";
+//        s1.id = 4903020;
+//        s1.address = "San Juan";
+//        s1.gender = "Male";
 
-        ArrayList<String> ngolors = new ArrayList<>();
-        ngolors.add("Mink");
-        ngolors.add("murmle");
-        ngolors.add("nred");
+//        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate bday = LocalDate.parse("2005-07-24",f );
+//
+//        s1.birthDay = bday;
+//        s1.birthDay = LocalDate.parse("2001-03-09", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        System.out.println(ngolors.get(1));
-        //not this ngolors[1]
+        s1.setBirthDate("2001-02-16");
+        //System.out.println(s1.firstName + " " + s1.lastName);
 
 
-        //var studentList = new ArrayList<Student>();
-        //List<Student> studentList = new ArrayList<>();
-        ArrayList<Student> studentList = new ArrayList<>();
-        studentList.add(new Student(1234, "de Tiger", "Ernest", "Marcos", LocalDate.now(), "grrr@gmai.com"));
+        System.out.println("Age now is " + s1.getAge());
 
-        System.out.println(studentList.get(0).getFullName());
+
+        Student s2 = new Student(123456, "Adrian", "Mendoza", "Lim", "IV", "Male", LocalDate.now(), "Planet Mars");
+        System.out.println("student 2 bday is " + s2.getAge());
+
     }
 }

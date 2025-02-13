@@ -2,72 +2,88 @@ package com.johnverz;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Student {
+    //instance vars, non-static
     private int id;
-    private String lastName;
     private String firstName;
+    private String lastName;
     private String middleName;
+    private String suffix;
+    private String gender;
     private LocalDate birthDay;
-    private String email;
+    private String address;
 
+    //parameterless or default constructor
     public Student(){
 
     }
 
     /**
-     *
-     * @param id Student ID
-     * @param lastName
-     * @param firstName
+     * Constructor to accept property values
+     * @param id the id of the student
+     * @param firstName first name of the student
      * @param middleName
+     * @param lastName
+     * @param suffix
+     * @param gender
      * @param birthDay
-     * @param email
+     * @param address
      */
     public Student(int id,
-                   String lastName,
                    String firstName,
                    String middleName,
+                   String lastName,
+                   String suffix,
+                   String gender,
                    LocalDate birthDay,
-                   String email){
+                   String address){
+
         this.id = id;
         this.firstName = firstName;
-        this.lastName = lastName;
         this.middleName = middleName;
+        this.lastName = lastName;
+        this.suffix = suffix;
+        this.gender = gender;
         this.birthDay = birthDay;
-        this.email = email;
-    }
-
-    public String getFullName(){
-        return firstName + " " + lastName;
+        this.address = address;
     }
 
     public int getAge(){
-        Period age = Period.between(this.birthDay, LocalDate.now());
-        return age.getYears();
+        //Period p = Period.between(birthDay, LocalDate.now());
+        return Period.between(birthDay, LocalDate.now()).getYears();
     }
 
-    public void setId(int id){
-        this.id=id;
-    }
-    public int getId(){
-        return id;
+    public void setBirthDate(String bday){
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        birthDay = LocalDate.parse(bday,f );
     }
 
-    public String getMiddleName() {
-        return middleName;
+    //accessor or getter   and mutator or setter methods
+
+    //setter/mutator
+    public void setFirstName(String firstName){
+        firstName = firstName.trim();
+        //extract individual names into array, and recreate the name
+
+        //e.g  adrian lester
+
+        String[] names = firstName.split("\\s");
+        this.firstName = "";
+        for(String name: names){
+            if(!this.firstName.isEmpty())
+                this.firstName += " ";
+            if(name.length() > 2)
+                this.firstName += name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+            else
+                this.firstName += name.toUpperCase();
+        }
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    //getter/accessor
+    public String getFirstName(){
+        return firstName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
