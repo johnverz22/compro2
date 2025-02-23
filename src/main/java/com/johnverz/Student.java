@@ -1,0 +1,122 @@
+package com.johnverz;
+
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+
+public class Student {
+    //instance vars, non-static
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private String suffix;
+    private String gender;
+    private LocalDate birthDay;
+    private String address;
+
+    //parameterless or default constructor
+    public Student(){
+
+    }
+
+
+    /**
+     * Constructor to accept property values
+     * @param id the id of the student
+     * @param firstName first name of the student
+     * @param middleName
+     * @param lastName
+     * @param suffix
+     * @param gender
+     * @param birthDay
+     * @param address
+     */
+
+    public Student(int id,
+                   String firstName,
+                   String middleName,
+                   String lastName,
+                   String suffix,
+                   String gender,
+                   String birthDay,
+                   String address){
+
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.suffix = suffix;
+        this.gender = gender;
+        setBirthDate(birthDay);
+        this.address = address;
+    }
+
+    public int getAge(){
+        //Period p = Period.between(birthDay, LocalDate.now());
+        return Period.between(birthDay, LocalDate.now()).getYears();
+    }
+
+    public void setBirthDate(String bday){
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        birthDay = LocalDate.parse(bday, f);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
