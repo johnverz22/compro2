@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Springboot</title>
+</head>
+<body>
+    <h1>I am learning Spring boot</h1>
+    <p th:text="${message}">the message will go here</p>
+
+    <div>
+        <h3>Student</h3>
+        <p>
+            First Name: [[${student.firstName}]]
+            <br>
+            Last Name: [[${student.lastName}]]
+            <br>
+            Age: [[${student.age}]]
+        </p>
+
+    </div>
+</body>
+</html>
