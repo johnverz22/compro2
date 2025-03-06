@@ -9,4 +9,9 @@ public class StudentController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/delete")
+    public String delete() {
+        return "delete";
+    }
 }
