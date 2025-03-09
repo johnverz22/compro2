@@ -83,4 +83,29 @@ public class HomeController {
         students.add(s);
         return "redirect:/";
     }
+
+    @GetMapping("/edit")
+    public String edit(@RequestParam int id, Model model) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                model.addAttribute("student", student);
+                return "edit";
+            }
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestParam int id,
+                         @RequestParam String firstName,
+                         @RequestParam String lastName) {
+        for (Student student : students) {
+            if (student.getId() == id) {
+                student.setFirstName(firstName);
+                student.setLastName(lastName);
+                break;
+            }
+        }
+        return "redirect:/";
+    }
 }
