@@ -1,61 +1,128 @@
 package com.johnverz.student;
-
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Student {
+    //instance vars, non-static
     private int id;
-    private String lastName;
     private String firstName;
+    private String lastName;
     private String middleName;
+    private String gender;
     private LocalDate birthDay;
-    private String email;
-
+    private String address;
+    private String suffix;
+    private int level;
+    //parameterless or default constructor
     public Student(){
 
     }
 
     /**
-     *
-     * @param id Student ID
-     * @param lastName
-     * @param firstName
+     * Constructor to accept property values
+     * @param id the id of the student
+     * @param firstName first name of the student
      * @param middleName
+     * @param lastName
+     * @param suffix
+     * @param gender
      * @param birthDay
-     * @param email
+     * @param address
      */
     public Student(int id,
-                   String lastName,
                    String firstName,
                    String middleName,
+                   String lastName,
+                   String suffix,
+                   String gender,
                    LocalDate birthDay,
-                   String email){
+                   String address,
+                   int level){
+
         this.id = id;
         this.firstName = firstName;
-        this.lastName = lastName;
         this.middleName = middleName;
+        this.lastName = lastName;
+        this.gender = gender;
         this.birthDay = birthDay;
-        this.email = email;
-    }
-
-    public String getFullName(){
-        return firstName + " " + lastName;
+        this.address = address;
+        this.suffix = suffix;
+        this.level = level;
     }
 
     public int getAge(){
-        Period age = Period.between(this.birthDay, LocalDate.now());
-        return age.getYears();
+        //Period p = Period.between(birthDay, LocalDate.now());
+        return Period.between(birthDay, LocalDate.now()).getYears();
     }
 
-    public void setId(int id){
-        this.id=id;
+    public void setBirthDay(String bday){
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        birthDay = LocalDate.parse(bday,f );
     }
-    public int getId(){
+
+    public void setBirthDay2(String bday){
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        birthDay = LocalDate.parse(bday,f );
+    }
+
+    public void setBirthDay(LocalDate bday){
+        this.birthDay = bday;
+    }
+
+    public String getBirthDay(){
+        if(birthDay == null){
+            return "Unknown";
+        }
+        return birthDay.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
+    }
+
+    public String getBirthDay2(){
+        if(birthDay == null){
+            return "Unknown";
+        }
+        return birthDay.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    public LocalDate getBirthDate(){
+        return birthDay;
+    }
+
+    //accessor or getter   and mutator or setter methods
+
+    //setter/mutator
+    public void setFirstName(String firstName){
+        firstName = firstName.trim();
+        //extract individual names into array, and recreate the name
+
+        //e.g  adrian lester
+
+        String[] names = firstName.split("\\s");
+        this.firstName = "";
+        for(String name: names){
+            if(!this.firstName.isEmpty())
+                this.firstName += " ";
+            if(name.length() > 2)
+                this.firstName += name.substring(0,1).toUpperCase() + name.substring(1, name.length());
+            else
+                this.firstName += name.toUpperCase();
+        }
+    }
+
+    //getter/accessor
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public String getMiddleName() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMiddleName(){
         return middleName;
     }
 
@@ -63,11 +130,47 @@ public class Student {
         this.middleName = middleName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

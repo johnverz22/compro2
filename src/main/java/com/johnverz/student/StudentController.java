@@ -1,17 +1,154 @@
 package com.johnverz.student;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 @Controller
 public class StudentController {
+    ArrayList<Student> students = new ArrayList<Student>();
+
+    public StudentController() {
+        Student s1 = new Student(
+                1,
+                "Collins",
+                "Baltazar",
+                "Lim",
+                "",
+                "Male",
+                LocalDate.parse("2000-01-07", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                "Balaoan",
+                1
+        );
+        students.add(s1);
+
+        Student s2 = new Student(
+                2,
+                "Zaimond",
+                "Alano",
+                "Hufana",
+                "Jr.",
+                "Male",
+                LocalDate.parse("2005-02-28", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                "San Juan",
+                1
+        );
+
+        students.add(s2);
+
+        Student s3 = new Student(
+                3,
+                "Hannah",
+                "Matt",
+                "Tamayo",
+                "",
+                "Female",
+                LocalDate.parse("2006-07-28", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                "San Gabriel",
+                1
+        );
+
+        students.add(s3);
+    }
+
+
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("students", students);
+
         return "index";
     }
 
     @GetMapping("/delete")
-    public String delete() {
-        return "delete";
+    public String delete(@RequestParam int id) {
+//        for(Student student : students) {
+//            if(student.getId() == id) {
+//                students.remove(student);
+//            }
+//        }
+        //shorthand of code above to remove an item
+        students.removeIf(s -> s.getId() == id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/new")
+    public String create(Model model){
+        int[] levels = {1,2,3,4};
+        model.addAttribute("levels", levels);
+        //model.addAttribute("levels", new int[]{1,2,3,4});
+        return "create";
+    }
+
+    @PostMapping("/save")
+    public String store(@RequestParam String firstName,
+                        @RequestParam String middleName,
+                        @RequestParam String lastName,
+                        @RequestParam String suffix,
+                        @RequestParam(defaultValue = "Male") String gender,
+                        @RequestParam(required = false) LocalDate birthDay,
+                        @RequestParam(defaultValue = "") String address,
+                        @RequestParam int level){
+        int lastId = students.size() == 0 ? 0 : students.get(students.size()-1).getId();
+
+        Student s = new Student(lastId+ 1,
+                firstName,
+                middleName,
+                lastName,
+                suffix,
+                gender,
+                birthDay,
+                address,
+                level
+        );
+        students.add(s);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit")
+    public String delete(@RequestParam int id, Model model) {
+        for(Student student : students) {
+            if(student.getId() == id) {
+                int[] levels = {1,2,3,4};
+                model.addAttribute("levels", levels);
+                model.addAttribute("student", student);
+                return "edit";
+            }
+        }
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/update")
+    public String store(@RequestParam int id,
+                        @RequestParam String firstName,
+                        @RequestParam String middleName,
+                        @RequestParam String lastName,
+                        @RequestParam String suffix,
+                        @RequestParam(defaultValue = "Male") String gender,
+                        @RequestParam(required = false) LocalDate birthDay,
+                        @RequestParam(defaultValue = "") String address,
+                        @RequestParam int level){
+
+        for(Student s : students){
+            if(s.getId() == id){
+                s.setFirstName(firstName);
+                s.setLastName(lastName);
+                s.setGender(gender);
+                s.setMiddleName(middleName);
+                s.setSuffix(suffix);
+                s.setBirthDay(birthDay);
+                s.setAddress(address);
+                s.setLevel(level);
+                break;
+            }
+        }
+
+        return "redirect:/";
     }
 }
