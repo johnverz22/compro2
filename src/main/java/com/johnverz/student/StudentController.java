@@ -12,55 +12,16 @@ import java.util.ArrayList;
 
 @Controller
 public class StudentController {
-    ArrayList<Student> students = new ArrayList<Student>();
+    StudentService studentService;
 
     public StudentController() {
-        Student s1 = new Student(
-                1,
-                "Collins",
-                "Baltazar",
-                "Lim",
-                "",
-                "Male",
-                LocalDate.parse("2000-01-07", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                "Balaoan",
-                1
-        );
-        students.add(s1);
-
-        Student s2 = new Student(
-                2,
-                "Zaimond",
-                "Alano",
-                "Hufana",
-                "Jr.",
-                "Male",
-                LocalDate.parse("2005-02-28", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                "San Juan",
-                1
-        );
-
-        students.add(s2);
-
-        Student s3 = new Student(
-                3,
-                "Hannah",
-                "Matt",
-                "Tamayo",
-                "",
-                "Female",
-                LocalDate.parse("2006-07-28", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                "San Gabriel",
-                1
-        );
-
-        students.add(s3);
+        studentService = new StudentService();
     }
 
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("students", students);
+        model.addAttribute("students", studentService.getStudents());
 
         return "index";
     }
@@ -73,7 +34,7 @@ public class StudentController {
 //            }
 //        }
         //shorthand of code above to remove an item
-        students.removeIf(s -> s.getId() == id);
+        //students.removeIf(s -> s.getId() == id);
         return "redirect:/";
     }
 
@@ -94,9 +55,9 @@ public class StudentController {
                         @RequestParam(required = false) LocalDate birthDay,
                         @RequestParam(defaultValue = "") String address,
                         @RequestParam int level){
-        int lastId = students.size() == 0 ? 0 : students.get(students.size()-1).getId();
 
-        Student s = new Student(lastId+ 1,
+
+        Student s = new Student(studentService.getLastId() + 1,
                 firstName,
                 middleName,
                 lastName,
@@ -106,20 +67,21 @@ public class StudentController {
                 address,
                 level
         );
-        students.add(s);
+
+        studentService.addStudent(s);
         return "redirect:/";
     }
 
     @GetMapping("/edit")
     public String delete(@RequestParam int id, Model model) {
-        for(Student student : students) {
-            if(student.getId() == id) {
-                int[] levels = {1,2,3,4};
-                model.addAttribute("levels", levels);
-                model.addAttribute("student", student);
-                return "edit";
-            }
-        }
+//        for(Student student : students) {
+//            if(student.getId() == id) {
+//                int[] levels = {1,2,3,4};
+//                model.addAttribute("levels", levels);
+//                model.addAttribute("student", student);
+//                return "edit";
+//            }
+//        }
 
         return "redirect:/";
     }
@@ -135,19 +97,19 @@ public class StudentController {
                         @RequestParam(defaultValue = "") String address,
                         @RequestParam int level){
 
-        for(Student s : students){
-            if(s.getId() == id){
-                s.setFirstName(firstName);
-                s.setLastName(lastName);
-                s.setGender(gender);
-                s.setMiddleName(middleName);
-                s.setSuffix(suffix);
-                s.setBirthDay(birthDay);
-                s.setAddress(address);
-                s.setLevel(level);
-                break;
-            }
-        }
+//        for(Student s : students){
+//            if(s.getId() == id){
+//                s.setFirstName(firstName);
+//                s.setLastName(lastName);
+//                s.setGender(gender);
+//                s.setMiddleName(middleName);
+//                s.setSuffix(suffix);
+//                s.setBirthDay(birthDay);
+//                s.setAddress(address);
+//                s.setLevel(level);
+//                break;
+//            }
+//        }
 
         return "redirect:/";
     }
