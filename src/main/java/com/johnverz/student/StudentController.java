@@ -20,7 +20,7 @@ public class StudentController {
 
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(required = false) String search, Model model) {
         model.addAttribute("students", studentService.getStudents());
 
         return "index";
@@ -28,13 +28,8 @@ public class StudentController {
 
     @GetMapping("/delete")
     public String delete(@RequestParam int id) {
-//        for(Student student : students) {
-//            if(student.getId() == id) {
-//                students.remove(student);
-//            }
-//        }
-        //shorthand of code above to remove an item
-        //students.removeIf(s -> s.getId() == id);
+        studentService.deleteStudent(id);
+
         return "redirect:/";
     }
 
@@ -73,15 +68,14 @@ public class StudentController {
     }
 
     @GetMapping("/edit")
-    public String delete(@RequestParam int id, Model model) {
-//        for(Student student : students) {
-//            if(student.getId() == id) {
-//                int[] levels = {1,2,3,4};
-//                model.addAttribute("levels", levels);
-//                model.addAttribute("student", student);
-//                return "edit";
-//            }
-//        }
+    public String edit(@RequestParam int id, Model model) {
+        Student s = studentService.getStudent(id);
+        if(s != null){
+            int[] levels = {1,2,3,4};
+            model.addAttribute("levels", levels);
+            model.addAttribute("student", s);
+            return "edit";
+        }
 
         return "redirect:/";
     }
@@ -97,19 +91,20 @@ public class StudentController {
                         @RequestParam(defaultValue = "") String address,
                         @RequestParam int level){
 
-//        for(Student s : students){
-//            if(s.getId() == id){
-//                s.setFirstName(firstName);
-//                s.setLastName(lastName);
-//                s.setGender(gender);
-//                s.setMiddleName(middleName);
-//                s.setSuffix(suffix);
-//                s.setBirthDay(birthDay);
-//                s.setAddress(address);
-//                s.setLevel(level);
-//                break;
-//            }
-//        }
+        Student s = studentService.getStudent(id);
+        if(s != null){
+            s.setFirstName(firstName);
+            s.setLastName(lastName);
+            s.setGender(gender);
+            s.setMiddleName(middleName);
+            s.setSuffix(suffix);
+            s.setBirthDay(birthDay);
+            s.setAddress(address);
+            s.setLevel(level);
+
+            studentService.updateStudent(id, s);
+        }
+
 
         return "redirect:/";
     }

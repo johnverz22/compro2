@@ -17,10 +17,43 @@ public class StudentService {
         return students;
     }
 
+    public void deleteStudent(int id){
+        students.removeIf(s -> s.getId() == id);
+        writeToDisk();
+    }
+
+    public ArrayList<Student> searchStudent(String keyword){
+        if(keyword.trim().isEmpty()){
+            return students;
+        }
+
+        return students.stream().filter(s);
+    }
+
+    public Student getStudent(int id){
+        for(Student s: students){
+            if(s.getId() == id)
+                return s;
+        }
+
+        return null;
+    }
+
+    public void updateStudent(int id, Student update){
+        for(int i = 0; i < students.size(); i++){
+            if(students.get(i).getId() == id){
+                students.set(i, update);
+                writeToDisk();
+                break;
+            }
+        }
+    }
     public void addStudent(Student student){
         students.add(student);
         writeToDisk();
     }
+
+
 
     public int getLastId(){
         if(students.isEmpty()){
