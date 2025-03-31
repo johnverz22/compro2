@@ -20,8 +20,8 @@ public class StudentController {
 
 
     @GetMapping("/")
-    public String index(@RequestParam(required = false) String search, Model model) {
-        model.addAttribute("students", studentService.getStudents());
+    public String index(@RequestParam(defaultValue = "") String search, Model model) {
+        model.addAttribute("students", studentService.searchStudent(search));
 
         return "index";
     }

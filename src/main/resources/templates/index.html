@@ -1,17 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Students</title>
-    <style>
-        table{
-            border-collapse: collapse;
-        }
-        table, td, th{
-            border: black 1px solid;
-        }
-    </style>
+
+    <link th:href="@{/css/style.css}" rel = "stylesheet">
 </head>
 <body>
     <h1>List of Students</h1>
@@ -34,13 +28,13 @@
         </thead>
         <tbod>
             <tr th:each="student, stat:${students}">
-                <td>#[[${stat.count}]]</td>
+                <td>[[${stat.count}]]</td>
                 <td th:text="${student.firstName}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.birthDay}"></td>
                 <td th:text="${student.address}"></td>
                 <td th:text="${student.gender}"></td>
-                <td>
+                <td class="actions">
                     <a th:href="@{/delete(id=${student.id})}">Delete</a>
                     <a th:href="@{/edit(id=${student.id})}">Edit</a>
                 </td>

@@ -2,6 +2,8 @@ package com.johnverz.student;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentService {
     private ArrayList<Student> students;
@@ -22,12 +24,16 @@ public class StudentService {
         writeToDisk();
     }
 
-    public ArrayList<Student> searchStudent(String keyword){
+    public List<Student> searchStudent(String keyword){
         if(keyword.trim().isEmpty()){
             return students;
         }
 
-        return students.stream().filter(s);
+        return students.stream().filter(s ->
+                s.getLastName().toLowerCase().contains(keyword.toLowerCase())
+                || s.getFirstName().toLowerCase().contains(keyword.toLowerCase())
+                || s.getAddress().toLowerCase().contains(keyword.toLowerCase())
+        ).collect(Collectors.toList());
     }
 
     public Student getStudent(int id){
