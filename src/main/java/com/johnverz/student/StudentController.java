@@ -1,8 +1,12 @@
 package com.johnverz.student;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -12,12 +16,9 @@ import java.util.ArrayList;
 
 @Controller
 public class StudentController {
+
+    @Autowired
     StudentService studentService;
-
-    public StudentController() {
-        studentService = new StudentService();
-    }
-
 
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "") String search, Model model) {
@@ -37,33 +38,23 @@ public class StudentController {
     public String create(Model model){
         int[] levels = {1,2,3,4};
         model.addAttribute("levels", levels);
+        Student newStudent = new Student();
+        newStudent.setGender("Male");
+        model.addAttribute("newStudent", newStudent);
         //model.addAttribute("levels", new int[]{1,2,3,4});
         return "create";
     }
 
     @PostMapping("/save")
-    public String store(@RequestParam String firstName,
-                        @RequestParam String middleName,
-                        @RequestParam String lastName,
-                        @RequestParam String suffix,
-                        @RequestParam(defaultValue = "Male") String gender,
-                        @RequestParam(required = false) LocalDate birthDay,
-                        @RequestParam(defaultValue = "") String address,
-                        @RequestParam int level){
+    public String store(@ModelAttribute("newStudent") @Valid Student student, BindingResult bindingResult) {
 
+        studentService.addStudent(student);
 
-        Student s = new Student(studentService.getLastId() + 1,
-                firstName,
-                middleName,
-                lastName,
-                suffix,
-                gender,
-                birthDay,
-                address,
-                level
-        );
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult.getAllErrors());
+            return "create";
+        }
 
-        studentService.addStudent(s);
         return "redirect:/";
     }
 

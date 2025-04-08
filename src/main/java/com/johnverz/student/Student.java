@@ -1,4 +1,8 @@
+
 package com.johnverz.student;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 public class Student {
     //instance vars, non-static
     private int id;
+    @NotBlank(message="First name is required")
     private String firstName;
+    @NotBlank(message="Apay awan last name mo? ")
     private String lastName;
     private String middleName;
     private String gender;
@@ -14,6 +20,10 @@ public class Student {
     private String address;
     private String suffix;
     private int level;
+
+    @NotBlank(message = "Email is required")
+    @Email(message="Invalid email address")
+    private String email;
     //parameterless or default constructor
     public Student(){
 
@@ -72,14 +82,14 @@ public class Student {
 
     public String getBirthDay(){
         if(birthDay == null){
-            return "Unknown";
+            return "";
         }
         return birthDay.format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
     }
 
     public String getBirthDay2(){
         if(birthDay == null){
-            return "Unknown";
+            return "";
         }
         return birthDay.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
@@ -172,5 +182,13 @@ public class Student {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

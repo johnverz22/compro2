@@ -1,10 +1,13 @@
 package com.johnverz.student;
 
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class StudentService {
     private ArrayList<Student> students;
     private final String FILE_NAME = "database.csv";
@@ -55,6 +58,7 @@ public class StudentService {
         }
     }
     public void addStudent(Student student){
+        student.setId(getLastId() + 1);
         students.add(student);
         writeToDisk();
     }
@@ -113,7 +117,8 @@ public class StudentService {
                 s.setMiddleName(data[2]);
                 s.setLastName(data[3]);
                 s.setSuffix(data[4]);
-                s.setBirthDay2(data[5]);
+                if(!data[5].isEmpty())
+                    s.setBirthDay2(data[5]);
                 s.setGender(data[6]);
                 s.setAddress(data[7]);
                 s.setLevel(Integer.parseInt(data[8]));
