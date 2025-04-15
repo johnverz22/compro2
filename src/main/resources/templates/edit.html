@@ -13,7 +13,8 @@
         <input type="hidden" name="id"  th:field="*{id}">
         <div>
             <label for="fname">First Name</label>
-            <input type="text" id="fname" th:field="*{firstName}" required>
+            <input type="text" id="fname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error' : '' ">
+            <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
         </div>
         <div>
             <label for="mname">Middle Name</label>
@@ -21,7 +22,10 @@
         </div>
         <div>
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName"  required th:field="*{lastName}">
+            <input type="text" id="lastName" class="input-text"
+                   th:field="*{lastName}"
+                   th:classappend="${#fields.hasErrors('lastName')} ? 'error' : '' ">
+            <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
         </div>
         <div>
             <label for="suffix">Suffix</label>
@@ -42,9 +46,15 @@
 
         <div>
             <label for="bday">Birth Day</label>
-            <input type="date" id="bday" required th:field="*{birthDate}">
+            <input type="date" id="bday" th:field="*{birthDate}" th:value="${student.birthDate}">
         </div>
-
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" class="input-text"
+                   th:field="*{email}"
+                   th:classappend="${#fields.hasErrors('email')} ? 'error' : '' ">
+            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
         <div>
             <label for="level">Year Level</label>
             <select th:field="*{level}" id="level">

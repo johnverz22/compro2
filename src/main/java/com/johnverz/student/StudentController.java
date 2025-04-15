@@ -47,13 +47,13 @@ public class StudentController {
 
     @PostMapping("/save")
     public String store(@ModelAttribute("newStudent") @Valid Student student, BindingResult bindingResult) {
-
-        studentService.addStudent(student);
-
+        //go back to form if errors are present then display them
         if(bindingResult.hasErrors()){
-            System.out.println(bindingResult.getAllErrors());
             return "create";
         }
+
+        // save the object if form is valid or pass all rules
+        studentService.addStudent(student);
 
         return "redirect:/";
     }
@@ -72,30 +72,22 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public String store(@RequestParam int id,
-                        @RequestParam String firstName,
-                        @RequestParam String middleName,
-                        @RequestParam String lastName,
-                        @RequestParam String suffix,
-                        @RequestParam(defaultValue = "Male") String gender,
-                        @RequestParam(required = false) LocalDate birthDay,
-                        @RequestParam(defaultValue = "") String address,
-                        @RequestParam int level){
-
-        Student s = studentService.getStudent(id);
-        if(s != null){
-            s.setFirstName(firstName);
-            s.setLastName(lastName);
-            s.setGender(gender);
-            s.setMiddleName(middleName);
-            s.setSuffix(suffix);
-            s.setBirthDay(birthDay);
-            s.setAddress(address);
-            s.setLevel(level);
-
-            studentService.updateStudent(id, s);
+    public String update(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult, Model model){
+        //go back to form if errors are present then display them
+        if (bindingResult.hasErrors()) {
+            // Re-populate the necessary data for the form
+            int[] levels = {1, 2, 3, 4};
+            model.addAttribute("levels", levels);
+            model.addAttribute("student", student); // Re-add the student object
+            System.out.println(bindingResult.getAllErrors());
+            return "edit";
         }
 
+        Student existingStudent = studentService.getStudent(student.getId());
+        if(existingStudent != null) {
+            // save the object if form is valid or pass all rules
+            studentService.updateStudent(student.getId(), student);
+        }
 
         return "redirect:/";
     }
