@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edit [[${student.fullName}]]</title>
+    <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
 <h1 th:text="'Edit ' + ${student.fullName}"></h1>
@@ -38,6 +39,7 @@
             <!--                <input type="radio" id="genderFemale" name="gender" value="Female" th:checked="${(student.gender ?: 'Male') == 'Female'}">-->
             <!--                <label for="genderFemale">Female</label>-->
         </div>
+
         <div>
             <label for="bday">Birth Day</label>
             <input type="date" id="bday" required th:field="*{birthDate}">
@@ -47,8 +49,8 @@
             <label for="level">Year Level</label>
             <select th:field="*{level}" id="level">
                 <option th:each="levelOp:${levels}"
-                        th:value="${level}"
-                        th:text="'Year ' + ${level}"
+                        th:value="${levelOp}"
+                        th:text="'Year ' + ${levelOp}"
                          ></option>
             </select>
 
@@ -58,7 +60,10 @@
             <label for="address">Address</label>
             <textarea id="address"  rows="2" cols="20" th:field="*{address}"></textarea>
         </div>
-        <button>Edit</button>
+        <div class="action">
+            <a th:href="@{/}" class="button cancel">Cancel</a>
+            <button>Save</button>
+        </div>
     </form>
 
 </div>

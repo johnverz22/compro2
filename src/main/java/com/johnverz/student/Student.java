@@ -12,7 +12,7 @@ public class Student {
     private int id;
     @NotBlank(message="First name is required")
     private String firstName;
-    @NotBlank(message="Apay awan last name mo? ")
+    @NotBlank(message="Last name is required? ")
     private String lastName;
     private String middleName;
     private String gender;

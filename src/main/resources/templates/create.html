@@ -7,69 +7,73 @@
     <title>New Student</title>
 </head>
 <body>
-<h1>New Student</h1>
-<div>
-    <form th:action="@{/save}" method="POST" th:object = "${newStudent}">
-        <div>
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error' : '' ">
-            <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
-        </div>
-        <div>
-            <label for="mname">Middle Name</label>
-            <input type="text" id="mname" th:field="*{middleName}">
-        </div>
-        <div>
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" class="input-text"
-                   th:field="*{lastName}"
-                   th:classappend="${#fields.hasErrors('lastName')} ? 'error' : '' ">
-            <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
-        </div>
-        <div>
-            <label for="suffix">Suffix</label>
-            <input type="text" id="suffix" name="suffix" th:field="*{suffix}">
-        </div>
-        <div>
-            <label>Gender</label>
-            <!--    radio button or select list-->
-            <!--                <select name="gender" id="gender">-->
-            <!--                    <option value="Male">Male</option>-->
-            <!--                    <option value="Female">Female</option>-->
-            <!--                </select>-->
-            <input type="radio" id="genderMale" th:field="*{gender}" value="Male">
-            <label for="genderMale">Male</label>
-            <input type="radio" id="genderFemale" th:field="*{gender}" value="Female">
-            <label for="genderFemale">Female</label>
-        </div>
-        <div>
-            <label for="bday">Birth Day</label>
-            <input type="date" id="bday" th:field="*{birthDay}">
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="text" id="email" class="input-text"
-                   th:field="*{email}"
-                   th:classappend="${#fields.hasErrors('email')} ? 'error' : '' ">
-            <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-        </div>
-        <div>
-            <label for="level">Year Level</label>
-            <select th:field="*{level}" id="level">
-                <option th:each="level:${levels}"
-                        th:value="${level}"
-                        th:text="'Year ' + ${level}"
-                ></option>
-            </select>
+    <h1>New Student</h1>
+    <div>
+        <form th:action="@{/save}" method="POST" th:object = "${newStudent}">
+            <div>
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error' : '' ">
+                <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+            </div>
+            <div>
+                <label for="mname">Middle Name</label>
+                <input type="text" id="mname" th:field="*{middleName}">
+            </div>
+            <div>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" class="input-text"
+                       th:field="*{lastName}"
+                       th:classappend="${#fields.hasErrors('lastName')} ? 'error' : '' ">
+                <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+            </div>
+            <div>
+                <label for="suffix">Suffix</label>
+                <input type="text" id="suffix" name="suffix" th:field="*{suffix}">
+            </div>
+            <div>
+                <label style="display:block">Gender</label>
+                <!--    radio button or select list-->
+                <!--                <select name="gender" id="gender">-->
+                <!--                    <option value="Male">Male</option>-->
+                <!--                    <option value="Female">Female</option>-->
+                <!--                </select>-->
+                <input type="radio" id="genderMale" th:field="*{gender}" value="Male">
+                <label for="genderMale">Male</label>
+                <input type="radio" id="genderFemale" th:field="*{gender}" value="Female">
+                <label for="genderFemale">Female</label>
+            </div>
+            <div>
+                <label for="bday">Birth Day</label>
+                <input type="date" id="bday" th:field="*{birthDay}">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" class="input-text"
+                       th:field="*{email}"
+                       th:classappend="${#fields.hasErrors('email')} ? 'error' : '' ">
+                <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div>
+                <label for="level">Year Level</label>
+                <select th:field="*{level}" id="level">
+                    <option th:each="level:${levels}"
+                            th:value="${level}"
+                            th:text="'Year ' + ${level}"
+                    ></option>
+                </select>
 
-        </div>
-        <div>
-            <label for="address">Address</label>
-            <textarea id="address" th:field="*{address}" rows="2" cols="20"></textarea>
-        </div>
-        <button>Save</button>
-    </form>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <textarea id="address" th:field="*{address}" rows="2" cols="20"></textarea>
+            </div>
+            <div class="action">
+                <a th:href="@{/}" class="button cancel">Cancel</a>
+                <button>Save</button>
+            </div>
 
-</div>
+        </form>
+
+    </div>
 </body>
 </html>
