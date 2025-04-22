@@ -1,6 +1,6 @@
 package com.johnverz.student;
 
-public class User {
+public class AppUser {
     private String username;
     private String password;
 
