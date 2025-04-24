@@ -14,15 +14,15 @@ public class AppRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Dummy password hash generation
-        String hash = new BCryptPasswordEncoder().encode("secret");
-        System.out.println(hash);
-
-        // Fetch user data from the CSV file
-        AppUser user = userService.findByUsername("john");
-        if (user != null) {
-            System.out.println(user.getUsername());
-        } else {
-            System.out.println("User not found.");
-        }
+//        String hash = new BCryptPasswordEncoder().encode("secret");
+//        System.out.println(hash);
+//
+//        // Fetch user data from the CSV file
+//        AppUser user = userService.findByUsername("john");
+//        if (user != null) {
+//            System.out.println(user.getUsername());
+//        } else {
+//            System.out.println("User not found.");
+//        }
     }
 }

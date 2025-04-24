@@ -1,0 +1,64 @@
+*{
+    box-sizing: border-box;
+}
+:root {
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --color-bg: #f4f4f4;
+    --color-surface: #ffffff;
+    --color-primary: #34B233;
+    --color-primary-hover: #2c9d2b;
+    --color-text: #212121;
+    --color-muted: #9e9e9e;
+    --border-radius: 0.75rem;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --transition: all 0.2s ease-in-out;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    padding: 2rem;
+}
+
+form {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 720px;
+    margin: auto;
+}
+
+input
+{
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: white;
+}
+
+button {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    margin-top: 20px;
+
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}

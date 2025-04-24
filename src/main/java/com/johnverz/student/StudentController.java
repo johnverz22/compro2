@@ -1,5 +1,6 @@
 package com.johnverz.student;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,13 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "") String search, Model model) {
+    public String index(@RequestParam(defaultValue = "") String search, HttpSession session, Model model) {
+        //check if user logged in
+        AppUser user = (AppUser) session.getAttribute("loggedInUser");
+        if(user == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("students", studentService.searchStudent(search));
 
         return "index";

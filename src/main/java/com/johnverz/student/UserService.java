@@ -32,4 +32,8 @@ public class UserService {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void save(AppUser appUser) {
+        //TO DO
+    }
 }
