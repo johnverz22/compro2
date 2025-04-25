@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>user
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="/login" method="POST" th:object="${user}">
+    <p th:if="${error}" th:text="${error}"></p>
+    <div>
+        <label for="username"> User Name: </label>
+        <input type="text" th:field="*{username}" id="username">
+        <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+    </div>
+
+    <div>
+        <label for="password"> Password: </label>
+        <input type="password"  th:field="*{password}" name="password" id="password">
+    </div>
+
+    <input type="submit" value="Login">
+</form>
+</body>
+</html>

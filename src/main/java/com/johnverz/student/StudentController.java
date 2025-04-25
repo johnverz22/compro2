@@ -1,5 +1,6 @@
 package com.johnverz.student;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,26 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "") String search, Model model) {
+    public String index(@RequestParam(defaultValue = "") String search, Model model, HttpSession session) {
+        //check if user is logged in
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if(currentUser == null){
+            return "redirect:/login";
+        }
+
         model.addAttribute("students", studentService.searchStudent(search));
 
         return "index";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam int id) {
+    public String delete(@RequestParam int id, HttpSession session) {
+        //check if user is logged in
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if(currentUser == null){
+            return "redirect:/login";
+        }
+
         studentService.deleteStudent(id);
 
         return "redirect:/";
