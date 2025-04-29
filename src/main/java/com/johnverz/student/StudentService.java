@@ -87,7 +87,8 @@ public class StudentService {
                         + s.getBirthDay2() + ","
                         + s.getGender() + ","
                         + s.getAddress() + ","
-                        + s.getLevel()
+                        + s.getLevel() + ","
+                        + s.getProfilePicture()
                 );
                 bw.newLine();
             }
@@ -122,6 +123,7 @@ public class StudentService {
                 s.setGender(data[6]);
                 s.setAddress(data[7]);
                 s.setLevel(Integer.parseInt(data[8]));
+                s.getProfilePicture(),
                 //add the student the array list
                 students.add(s);
             }

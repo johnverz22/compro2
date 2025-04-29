@@ -11,7 +11,7 @@ import javax.swing.*;
 public class StudentApplication {
 
 	public static void main(String[] args) {
-		run();
+		//run();
 		SpringApplication.run(StudentApplication.class, args);
 	}
 

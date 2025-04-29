@@ -49,7 +49,7 @@ public class Student {
                    String gender,
                    LocalDate birthDay,
                    String address,
-                   int level){
+                   int level, String profilePicture){
 
         this.id = id;
         this.firstName = firstName;

@@ -94,7 +94,7 @@ public class StudentController {
 
             String fileName = student.getId() + "_" + profilePicture.getOriginalFilename();
             try {
-                profilePicture.transferTo(new File(path+fileName));
+                profilePicture.transferTo(new File(uploadFolder.getAbsolutePath()+ File.separator +fileName));
                 student.setProfilePicture(fileName);
             } catch (IOException e) {
                 System.out.println("File upload error: " + e.getMessage());
