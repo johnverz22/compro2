@@ -139,12 +139,17 @@ tr:last-child td {
     background: var(--color-primary-hover);
 }
 
-.actions a:last-child {
+.actions .edit {
     background: #e11d48;
     color: white;
 }
 
-.actions a:last-child:hover {
+.actions .view {
+    background: #e11d48;
+    color: white;
+}
+
+.actions .delete {
     background: #be123c;
 }
 

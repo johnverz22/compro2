@@ -2,14 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Student | [[${student.fullName}}]]</title>
+    <title>View Student | [[${student.fullName}]]</title>
     <link rel="stylesheet" href="/css/student-detail.css">
 </head>
 <body>
 
 <div class="student-card">
     <div class="profile">
-        <img th:src="@{${student.profilePicture}}" alt="Profile Picture">
+        <!-- If student has uploaded a profile picture -->
+        <img th:if="${student.profilePicture != null}"
+             th:src="@{'/' + ${student.profilePicture}}"
+             alt="Profile Picture">
+
+        <!-- If no picture, fallback to default based on gender -->
+        <img th:if="${student.profilePicture == null}"
+             th:src="@{${student.gender == 'Male'} ? '/images/default-male.png' : '/images/default-female.png'}"
+             alt="Default Picture">
         <h2 th:text="${student.firstName + ' ' + student.lastName}"></h2>
         <p th:text="${student.email}"></p>
     </div>
