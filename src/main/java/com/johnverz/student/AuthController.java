@@ -3,6 +3,8 @@ package com.johnverz.student;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthController {
+
+    @Autowired
+    AppUserService appUserService;
 
 //    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 //    public String login(@RequestParam(required = false) String username, @RequestParam(required = false) String password, HttpServletRequest request) {
@@ -28,26 +33,21 @@ public class AuthController {
         return "login";
     }
     @PostMapping("/login")
-    public String authenticate(@ModelAttribute("user") @Valid AppUser user, BindingResult bindingResult, HttpSession session, Model model){
+    public String login(@ModelAttribute("user") @Valid AppUser formUser, BindingResult bindingResult, HttpSession session, Model model){
         if(bindingResult.hasErrors()){
             return "login";
         }
 
         //authenticate
-        String dummyUserName ="smoshi02";
-        String password ="ilovejasmin";
-
-        if(user.getUsername().equals(dummyUserName) && user.getPassword().equals(password)){
-            //yehey you are not a hacker. I can now let you in access me
-            //just enjoy, promise?
-            //initiate a session
-            session.setAttribute("user", user);
-
+        AppUser foundUser = appUserService.findByUsername(formUser.getUsername());
+        if(foundUser != null && new BCryptPasswordEncoder().matches(formUser.getPassword(), foundUser.getPassword())){
+            session.setAttribute("user", foundUser);
             return "redirect:/";
+        }else{
+            String error ="Invalid credentials";
+            model.addAttribute("error", error);
         }
 
-        String error ="Hacker ka noh? Tawag na ako ng pulis";
-        model.addAttribute("error", error);
 
         return "login";
 
