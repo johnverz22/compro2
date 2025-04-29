@@ -9,7 +9,7 @@
 <body>
     <h1>New Student</h1>
     <div>
-        <form th:action="@{/save}" method="POST" th:object = "${newStudent}">
+        <form th:action="@{/save}" enctype="multipart/form-data" method="POST" th:object = "${newStudent}">
             <div>
                 <label for="fname">First Name</label>
                 <input type="text" id="fname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error' : '' ">
@@ -66,6 +66,10 @@
             <div>
                 <label for="address">Address</label>
                 <textarea id="address" th:field="*{address}" rows="2" cols="20"></textarea>
+            </div>
+            <div>
+                <label for="profile">Profile Picture</label>
+                <input type="file" id="profile" name="imageFile"></input>
             </div>
             <div class="action">
                 <a th:href="@{/}" class="button cancel">Cancel</a>

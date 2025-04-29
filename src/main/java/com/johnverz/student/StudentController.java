@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,7 +51,14 @@ public class StudentController {
     }
 
     @GetMapping("/new")
-    public String create(Model model){
+    public String create(Model model, HttpSession session) {
+        //check if user is logged in
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if(currentUser == null){
+            return "redirect:/login";
+        }
+
+
         int[] levels = {1,2,3,4};
         model.addAttribute("levels", levels);
         Student newStudent = new Student();
@@ -59,10 +69,36 @@ public class StudentController {
     }
 
     @PostMapping("/save")
-    public String store(@ModelAttribute("newStudent") @Valid Student student, BindingResult bindingResult) {
+    public String store(@ModelAttribute("newStudent") @Valid Student student, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile profilePicture, HttpSession session) {
+        //check if user is logged in
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if(currentUser == null){
+            return "redirect:/login";
+        }
+
         //go back to form if errors are present then display them
         if(bindingResult.hasErrors()){
+            System.out.println(bindingResult.getAllErrors());
             return "create";
+        }
+
+        //handle the file uploaded
+        if(!profilePicture.isEmpty()){
+            String path = "data/profile_pictures/";
+            File uploadFolder = new File(path);
+
+            //create folder if not existing
+            if(!uploadFolder.exists()){
+                uploadFolder.mkdirs();
+            }
+
+            String fileName = student.getId() + "_" + profilePicture.getOriginalFilename();
+            try {
+                profilePicture.transferTo(new File(path+fileName));
+                student.setProfilePicture(fileName);
+            } catch (IOException e) {
+                System.out.println("File upload error: " + e.getMessage());
+            }
         }
 
         // save the object if form is valid or pass all rules

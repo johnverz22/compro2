@@ -20,6 +20,7 @@ public class Student {
     private String address;
     private String suffix;
     private int level;
+    private String profilePicture;
 
     @NotBlank(message = "Email is required")
     @Email(message="Invalid email address")
@@ -190,5 +191,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
