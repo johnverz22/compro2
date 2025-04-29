@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Student | [[${student.fullName}}]]</title>
+    <link rel="stylesheet" href="/css/student-detail.css">
+</head>
+<body>
+
+<div class="student-card">
+    <div class="profile">
+        <img th:src="@{${student.profilePicture}}" alt="Profile Picture">
+        <h2 th:text="${student.firstName + ' ' + student.lastName}"></h2>
+        <p th:text="${student.email}"></p>
+    </div>
+
+    <div class="details">
+        <div><strong>Middle Name:</strong> <span th:text="${student.middleName}"></span></div>
+        <div><strong>Suffix:</strong> <span th:text="${student.suffix}"></span></div>
+        <div><strong>Gender:</strong> <span th:text="${student.gender}"></span></div>
+        <div><strong>Birthday:</strong> <span th:text="${student.birthDay}"></span></div>
+        <div><strong>Address:</strong> <span th:text="${student.address}"></span></div>
+        <div><strong>Level:</strong> <span th:text="${student.level}"></span></div>
+    </div>
+</div>
+
+</body>
+</html>

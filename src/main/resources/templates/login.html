@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-<form action="/login" method="POST" th:object="${user}">
+
+<div class="login-container">
     <h1>Login</h1>
-    <p th:if="${error}" th:text="${error}"></p>
-    <div>
-        <label for="username"> User Name: </label>
-        <input type="text" th:field="*{username}" id="username">
-        <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-    </div>
+    <form action="/login" method="POST" th:object="${user}">
 
-    <div>
-        <label for="password"> Password: </label>
-        <input type="password"  th:field="*{password}" name="password" id="password">
-    </div>
+        <p class="form-error" th:if="${error}" th:text="${error}"></p>
 
-    <input type="submit" value="Login">
-</form>
+        <div>
+            <label for="username">User Name</label>
+            <input type="text" th:field="*{username}" id="username" />
+            <p class="form-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" th:field="*{password}" id="password" />
+            <p class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+
 </body>
 </html>

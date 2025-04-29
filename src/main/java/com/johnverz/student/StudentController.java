@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -57,7 +54,6 @@ public class StudentController {
         if(currentUser == null){
             return "redirect:/login";
         }
-
 
         int[] levels = {1,2,3,4};
         model.addAttribute("levels", levels);
@@ -139,5 +135,12 @@ public class StudentController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/student/{id}")
+    public String view(@PathVariable int id, Model model) {
+        Student s = studentService.getStudent(id);
+        model.addAttribute("student", s);
+        return "student";
     }
 }
