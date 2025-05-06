@@ -1,5 +1,8 @@
-package com.johnverz.student;
+package com.johnverz.student.controllers;
 
+import com.johnverz.student.services.StudentService;
+import com.johnverz.student.models.AppUser;
+import com.johnverz.student.models.Student;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.UUID;
 
 @Controller
 public class StudentController {
@@ -88,7 +89,9 @@ public class StudentController {
                 uploadFolder.mkdirs();
             }
 
-            String fileName = student.getId() + "_" + profilePicture.getOriginalFilename();
+//            String fileName = student.getId() + "_" + profilePicture.getOriginalFilename();
+            String fileName = UUID.randomUUID() + profilePicture.getOriginalFilename().substring(profilePicture.getOriginalFilename().lastIndexOf(".")) ;
+
             try {
                 profilePicture.transferTo(new File(uploadFolder.getAbsolutePath()+ File.separator +fileName));
                 student.setProfilePicture(fileName);
@@ -138,8 +141,15 @@ public class StudentController {
     }
 
     @GetMapping("/student/{id}")
-    public String view(@PathVariable int id, Model model) {
+    public String view(@PathVariable int id, Model model, HttpSession session) {
+        //check if user is logged in
+        AppUser currentUser = (AppUser) session.getAttribute("user");
+        if(currentUser == null){
+            return "redirect:/login";
+        }
+
         Student s = studentService.getStudent(id);
+        //s.setProfilePicture(null);
         model.addAttribute("student", s);
         return "student";
     }

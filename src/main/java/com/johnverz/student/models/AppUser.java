@@ -1,4 +1,4 @@
-package com.johnverz.student;
+package com.johnverz.student.models;
 
 import jakarta.validation.constraints.NotBlank;
 

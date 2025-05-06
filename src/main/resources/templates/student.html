@@ -18,6 +18,9 @@
         <img th:if="${student.profilePicture == null}"
              th:src="@{${student.gender == 'Male'} ? '/images/default-male.png' : '/images/default-female.png'}"
              alt="Default Picture">
+
+
+
         <h2 th:text="${student.firstName + ' ' + student.lastName}"></h2>
         <p th:text="${student.email}"></p>
     </div>

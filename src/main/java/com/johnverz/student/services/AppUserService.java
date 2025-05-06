@@ -1,6 +1,8 @@
-package com.johnverz.student;
+package com.johnverz.student.services;
 
+import com.johnverz.student.models.AppUser;
 import jakarta.annotation.PostConstruct;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -39,6 +41,7 @@ public class AppUserService {
     }
 
     public void save(AppUser appUser) {
-        //TO DO
+        appUser.setPassword(new BCryptPasswordEncoder().encode(appUser.getPassword()));
+        //tod save new user like saving student in the Student Service
     }
 }

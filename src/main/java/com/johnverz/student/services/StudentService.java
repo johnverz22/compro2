@@ -1,5 +1,6 @@
-package com.johnverz.student;
+package com.johnverz.student.services;
 
+import com.johnverz.student.models.Student;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private ArrayList<Student> students;
-    private final String FILE_NAME = "database.csv";
+    private final String FILE_NAME = "data/database.csv";
 
     public StudentService() {
         students = new ArrayList<>();

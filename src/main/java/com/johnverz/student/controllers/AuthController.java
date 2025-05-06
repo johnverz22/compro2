@@ -1,6 +1,7 @@
-package com.johnverz.student;
+package com.johnverz.student.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.johnverz.student.services.AppUserService;
+import com.johnverz.student.models.AppUser;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
