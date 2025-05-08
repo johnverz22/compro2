@@ -22,6 +22,11 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "layouts/master";
+    }
+
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "") String search, Model model, HttpSession session) {
         //check if user is logged in
