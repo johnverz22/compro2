@@ -129,18 +129,11 @@ main{
     padding: 71px;
 }
 
-
-
-
+/* styles for table size screen */
 @media(max-width: 48em){
     body{
         grid-template-columns: 102px 1fr;
     }
-
-    .menu > ul > li{
-        align-items: center;
-    }
-
 
     .brand span, .menu > ul > li > span, .user-profile > div{
         display: none;
@@ -152,5 +145,6 @@ main{
         height: 24px;
         padding: 0;
         flex-grow: 1;
+        overflow: visible;
     }
 }

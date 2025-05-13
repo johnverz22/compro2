@@ -5,18 +5,17 @@
     customCss=~{::link}
 )}">
 <title>Student List</title>
-<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/index.css">
 
 <main>
     <h1>List of Students</h1>
 
-    <a href="/new" class="button">Register New Students</a>
-    <a th:replace="components/logout"></a>
+    <a href="/new" >Register New Students</a>
     <form>
         <input type="text" name="search" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-   <a th:replace="components/logout"></a>
+
     <div class="card">
         <table>
             <thead>

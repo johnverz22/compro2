@@ -1,26 +1,4 @@
-*{
-    box-sizing: border-box;
-}
-:root {
-    --font-sans: 'Inter', system-ui, sans-serif;
-    --color-bg: #f4f4f4;
-    --color-surface: #ffffff;
-    --color-primary: #34B233;
-    --color-primary-hover: #2c9d2b;
-    --color-text: #212121;
-    --color-error: #e11d48;
-    --color-border: #d1d5db;
-    --border-radius: 0.75rem;
-    --transition: all 0.2s ease-in-out;
-}
 
-body {
-    font-family: var(--font-sans);
-    background: var(--color-bg);
-    color: var(--color-text);
-    margin: 0;
-    padding: 2rem;
-}
 
 h1 {
     font-size: 2rem;
