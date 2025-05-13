@@ -11,23 +11,13 @@
     --transition: all 0.2s ease-in-out;
 }
 
-body {
-    font-family: var(--font-sans);
-    background: var(--color-bg);
-    color: var(--color-text);
-    margin: 0;
-    padding: 2rem;
-}
 
 .container {
     max-width: 960px;
     margin: auto;
 }
 
-h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
+
 
 a.button{
     color: var(--color-primary);
