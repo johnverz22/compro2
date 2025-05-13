@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:replace="${docTitle}">Responsive Dash</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link th:replace="${customCss}"/>
+
+</head>
+<body>
+<aside>
+    <div class="top">
+        <div class="brand">
+            <img src="images/logo.jpg" alt="logo" />
+            <span>Company ABC</span>
+        </div>
+        <div class="menu">
+            <ul>
+                <li  th:replace="components/menu_item :: menuItem('/', 'Dashboard', ${activeMenu == 'home' ? 'active': ''})"></li>
+                <li th:replace="components/menu_item :: menuItem('/new', 'Add Students',  ${ activeMenu == 'create' ? 'active': ''})"></li>
+                <li th:replace="components/menu_item :: menuItem('/catalog', 'Student Catalog',  ${activeMenu == 'catalog' ? 'active' : ''})"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="user-profile">
+        <img src="/images/avatar.png" alt="Evano-profile" />
+        <div>
+            <h1>Evano</h1>
+            <span>Project Manager</span>
+        </div>
+    </div>
+</aside>
+<main th:replace="${content}">dynamic content will appear here</main>
+<script>
+    window.addEventListener('load', function () {
+
+        document.querySelectorAll('.menu li').forEach(menu => {
+            console.log(menu);
+            menu.addEventListener('click', () => {
+                const url = menu.getAttribute('data-url');
+                location.href = url;
+            });
+        });
+
+    });
+
+</script>
+</body>
+</html>

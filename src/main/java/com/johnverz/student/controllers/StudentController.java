@@ -36,6 +36,7 @@ public class StudentController {
         }
 
         model.addAttribute("students", studentService.searchStudent(search));
+        model.addAttribute("activeMenu", "home");
 
         return "index";
     }
@@ -66,6 +67,8 @@ public class StudentController {
         Student newStudent = new Student();
         newStudent.setGender("Male");
         model.addAttribute("newStudent", newStudent);
+        model.addAttribute("activeMenu", "create");
+
         //model.addAttribute("levels", new int[]{1,2,3,4});
         return "create";
     }

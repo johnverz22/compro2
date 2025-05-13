@@ -1,12 +1,15 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/form.css}">
-    <title>New Student</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{layout/main :: html(
+    content=~{::main},
+    docTitle=~{::title},
+    customCss=~{::link}
+)}">
+
+
+<link rel="stylesheet" th:href="@{/css/form.css}">
+<title>New Student</title>
+
+<main>
     <h1>New Student</h1>
     <div>
         <form th:action="@{/save}" enctype="multipart/form-data" method="POST" th:object = "${newStudent}">
@@ -79,5 +82,4 @@
         </form>
 
     </div>
-</body>
-</html>
+</main>

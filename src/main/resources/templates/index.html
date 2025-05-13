@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{layouts/master :: html(
-    content=~{::div},
-    link=~{::link},
-    title=~{::title}
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{layout/main :: html(
+    content=~{::main},
+    docTitle=~{::title},
+    customCss=~{::link}
 )}">
-<head>
-    <title>List of Students</title>
-    <link rel="stylesheet" href="/css/style.css">
+<title>Student List</title>
+<link rel="stylesheet" href="css/table.css">
 
-</head>
-<body>
-<div class="container">
+<main class="container">
     <h1>List of Students</h1>
 
     <a href="/new" class="button">Register New Students</a>
-    <a href="/logout" class="button" style="float: right;">Log Out</a>
+    <a th:replace="components/logout"></a>
     <form>
         <input type="text" name="search" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-
+   <a th:replace="components/logout"></a>
     <div class="card">
         <table>
             <thead>
@@ -50,7 +47,5 @@
             </tbody>
         </table>
     </div>
-</div>
+</main>
 
-</body>
-</html>
