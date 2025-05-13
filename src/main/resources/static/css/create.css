@@ -1,17 +1,21 @@
-
+:root{
+    --border-radius: 8px;
+    --form-border: #d1d5db;
+    --transition: all 0.2s ease-in-out;
+    --error-bg: rgba(239, 68, 68, .38);
+    --error-border: #EF4444;
+    --error-text: #B91C1C;
+}
 
 h1 {
-    font-size: 2rem;
     margin-bottom: 1rem;
-    text-align: center;
 }
 
 form {
-    background: var(--color-surface);
+    background: var(--primary);
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    max-width: 720px;
     margin: auto;
 }
 
@@ -31,7 +35,7 @@ select,
 textarea {
     width: 100%;
     padding: 0.65rem 1rem;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--form-border);
     border-radius: var(--border-radius);
     font-family: inherit;
     font-size: 1rem;
@@ -57,7 +61,7 @@ input[type="date"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--accent);
     box-shadow: 0 0 0 2px rgba(52, 178, 51, 0.2);
 }
 
@@ -70,7 +74,7 @@ textarea {
 }
 
 .error {
-    color: var(--color-error);
+    color: var(--error-text);
     font-size: 0.875rem;
     margin-top: 0.25rem;
 }
@@ -78,11 +82,11 @@ textarea {
 input.error,
 select.error,
 textarea.error {
-    border-color: var(--color-error);
+    border-color: var(--error-border);
 }
 
 button, a.button {
-    background: var(--color-primary);
+    background: var(--accent);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -97,9 +101,7 @@ a{
     text-decoration: none;
 }
 
-button:hover {
-    background: var(--color-primary-hover);
-}
+
 
 div.action{
     display: flex;
@@ -107,11 +109,12 @@ div.action{
 }
 
 .button.cancel {
-    background: #e11d48;
-    color: white;
+    background: var(--primary);
+    color: var(--error-text);
+    border: var(--error-border) 2px solid;
 }
 
 .button.cancel:hover {
-    background: #be123c;
+    background: var(--error-bg);
 }
 

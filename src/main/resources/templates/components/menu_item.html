@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<li th:data-url="${url}" th:classappend="${class}" th:fragment="menuItem(url, label, class)">
+    <li  th:fragment="menuItem(url, label, class)" th:data-url="${url}" th:classappend="${class}">
     <svg
             width="24"
             height="24"
@@ -43,3 +43,5 @@
             th:text="${label}"></span>
 <!--    <span>></span>-->
 </li>
+
+

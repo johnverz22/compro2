@@ -6,7 +6,6 @@
     <title th:replace="${docTitle}">Responsive Dash</title>
     <link rel="stylesheet" href="css/main.css" />
     <link th:replace="${customCss}"/>
-
 </head>
 <body>
 <aside>
@@ -36,10 +35,9 @@
     window.addEventListener('load', function () {
 
         document.querySelectorAll('.menu li').forEach(menu => {
-            console.log(menu);
             menu.addEventListener('click', () => {
                 const url = menu.getAttribute('data-url');
-                location.href = url;
+                location.href = url; //this will redirect to the url
             });
         });
 

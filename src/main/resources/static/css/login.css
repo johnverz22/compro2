@@ -5,7 +5,7 @@
     --font-sans: 'Inter', system-ui, sans-serif;
     --color-bg: #f4f4f4;
     --color-surface: #ffffff;
-    --color-primary: #34B233;
+    --color-primary: #5932EA;
     --color-primary-hover: #2c9d2b;
     --color-text: #212121;
     --color-error: #e11d48;
@@ -87,10 +87,6 @@ body {
     font-size: 1rem;
     font-weight: 600;
     transition: var(--transition);
-}
-
-.login-container button:hover {
-    background: var(--color-primary-hover);
 }
 
 .login-container .link {

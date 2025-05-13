@@ -38,9 +38,9 @@
                 <td th:text="${student.address}"></td>
                 <td th:text="${student.gender}"></td>
                 <td class="actions">
-                    <a th:href="@{/student/{id}(id=${student.id})}" class="button view">View</a>
-                    <a th:href="@{/edit(id=${student.id})}" class="button edit">Edit</a>
-                    <a th:href="@{/delete(id=${student.id})}" class="button delete" style="background:#e11d48;">Delete</a>
+                    <a th:href="@{/student/{id}(id=${student.id})}" class="button success">View</a>
+                    <a th:href="@{/edit(id=${student.id})}" class="button warning">Edit</a>
+                    <a th:href="@{/delete(id=${student.id})}" class="button error">Delete</a>
                 </td>
             </tr>
             </tbody>

@@ -2,6 +2,17 @@
     --border-radius: 8px;
     --transition: all 0.2s ease-in-out;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --success-bg: rgba(22,192, 152, .38);
+    --success-border: #00B087;
+    --success-text: #008767;
+    --error-bg: rgba(239, 68, 68, .38);
+    --error-border: #EF4444;
+    --error-text: #B91C1C;
+    --warning-bg: rgba(245, 158, 11, .38);
+    --warning-border: #F59E0B;
+    --warning-text: #B45309;
+    --form-border: #d1d5db;
+
 }
 
 
@@ -25,7 +36,7 @@ form {
 input[type="text"] {
     flex: 1;
     padding: 0.65rem 1rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--form-border);
     border-radius: var(--border-radius);
     font-family: inherit;
     transition: var(--transition);
@@ -38,7 +49,7 @@ input[type="text"]:focus {
     box-shadow: 0 0 0 2px rgba(var(--accent), 0.2);
 }
 
-button {
+button, .button {
     box-sizing: border-box;
     background: var(--accent);
     color: white;
@@ -54,6 +65,44 @@ button:hover {
     border: var(--accent) 2px solid;
     background: var(--primary);
     color: var(--accent);
+}
+
+a.button.success{
+    padding: 0.2rem 1rem;
+    color: var(--success-text);
+    border: var(--success-border) 2px solid;
+    background: var(--primary);
+}
+
+a.button.error{
+    padding: 0.2rem 1rem;
+    color: var(--error-text);
+    border: var(--error-border) 2px solid;
+    background: var(--primary);
+}
+
+a.button.warning{
+    padding: 0.2rem 1rem;
+    color: var(--warning-text);
+    border: var(--warning-border) 2px solid;
+    background: var(--primary);
+}
+
+
+a.button:hover{
+    text-decoration:none;
+}
+
+a.button.success:hover{
+    background: var(--success-bg);
+}
+
+a.button.error:hover{
+    background: var(--error-bg);
+}
+
+a.button.warning:hover{
+    background: var(--warning-bg);
 }
 
 
@@ -73,47 +122,11 @@ th, td {
 }
 
 th {
-    background: #f0fdf4;
+    /*background: #f0fdf4;*/
 }
 
 tr:last-child td {
     border-bottom: none;
 }
 
-.actions a {
-    margin-right: 0.5rem;
-    text-decoration: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--border-radius);
-    background: #e2e8f0;
-    color: var(--color-text);
-    transition: var(--transition);
-}
-
-.actions a:hover {
-    background: var(--color-muted);
-}
-
-.actions a:first-child {
-    background: var(--color-primary);
-    color: white;
-}
-
-.actions a:first-child:hover {
-    background: var(--color-primary-hover);
-}
-
-.actions .edit {
-    background: #e11d48;
-    color: white;
-}
-
-.actions .view {
-    background: #e11d48;
-    color: white;
-}
-
-.actions .delete {
-    background: #be123c;
-}
 
