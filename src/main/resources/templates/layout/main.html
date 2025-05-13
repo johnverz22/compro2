@@ -13,11 +13,11 @@
     <div class="top">
         <div class="brand">
             <img src="images/logo.jpg" alt="logo" />
-            <span>Company ABC</span>
+            <span>Student System</span>
         </div>
         <div class="menu">
             <ul>
-                <li  th:replace="components/menu_item :: menuItem('/', 'Dashboard', ${activeMenu == 'home' ? 'active': ''})"></li>
+                <li th:replace="components/menu_item :: menuItem('/', 'Dashboard', ${activeMenu == 'home' ? 'active': ''})"></li>
                 <li th:replace="components/menu_item :: menuItem('/new', 'Add Students',  ${ activeMenu == 'create' ? 'active': ''})"></li>
                 <li th:replace="components/menu_item :: menuItem('/catalog', 'Student Catalog',  ${activeMenu == 'catalog' ? 'active' : ''})"></li>
             </ul>

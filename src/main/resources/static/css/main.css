@@ -75,7 +75,7 @@ aside{
     height: 24px;
 }
 
-.menu > ul > li :nth-child(2){
+.menu > ul > li > span:nth-child(2){
     flex-grow: 1;
 }
 
@@ -136,6 +136,11 @@ main{
     body{
         grid-template-columns: 102px 1fr;
     }
+
+    .menu > ul > li{
+        align-items: center;
+    }
+
 
     .brand span, .menu > ul > li > span, .user-profile > div{
         display: none;
