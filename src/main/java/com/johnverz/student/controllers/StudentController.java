@@ -22,6 +22,12 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
+    @GetMapping("/catalog")
+    public String catalog(Model model){
+        model.addAttribute("students", studentService.getStudents());
+        return "catalog";
+    }
+
     @GetMapping("/home")
     public String home(Model model) {
         return "layouts/master";
